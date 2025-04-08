@@ -7,7 +7,7 @@ env:
 jobs:
 
   linux:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
 
       - uses: actions/checkout@v3
@@ -175,7 +175,7 @@ jobs:
           if-no-files-found: error
 
   android:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
 
       - uses: actions/checkout@v3
@@ -281,7 +281,7 @@ jobs:
 
   package-haxelib:
     needs: [linux, macos, windows, android, ios]
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
 
       - uses: actions/checkout@v3
@@ -387,7 +387,7 @@ jobs:
           if-no-files-found: error
 
   docs:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
 
       - uses: actions/checkout@v3
@@ -417,7 +417,7 @@ jobs:
           if-no-files-found: error
 
   flash-samples:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
 
       - uses: actions/checkout@v3
@@ -512,7 +512,7 @@ jobs:
     needs: package-haxelib
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-20.04, macos-15]
+        os: [windows-latest, ubuntu-latest, macos-15]
     runs-on: ${{ matrix.os }}
     steps:
 
@@ -559,7 +559,7 @@ jobs:
           lime build SimpleAudio hl -release -verbose -nocolor
 
   html5-samples:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
 
       - uses: actions/checkout@v3
@@ -619,7 +619,7 @@ jobs:
     strategy:
       matrix:
         haxe-version: [3.4.7, 4.2.5]
-        os: [windows-latest, ubuntu-20.04, macos-15]
+        os: [windows-latest, ubuntu-latest, macos-15]
     runs-on: ${{ matrix.os }}
     steps:
 
@@ -666,7 +666,7 @@ jobs:
           lime build SimpleAudio neko -release -verbose -nocolor
 
   notify:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     needs: [package-haxelib, docs, android, flash-samples, air-samples, hashlink-samples, html5-samples, ios, linux, macos, neko-samples, windows]
     if: ${{ github.repository == 'openfl/lime' && github.event_name != 'pull_request' }}
     steps:
