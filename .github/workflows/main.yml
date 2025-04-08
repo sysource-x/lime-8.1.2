@@ -29,9 +29,9 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib git hxcpp https://github.com/MasterX-39/hxcpp-h --quiet
+          haxelib git hxcpp https://github.com/MaysLastPlays-Stuff/hxcpp-h --quiet
           haxelib install format --quiet
-          haxelib install hxp --quiet
+          haxelib git hxp https://github.com/openfl/hxp --quiet
 
       - name: Enable HXCPP compile cache
         run: |
@@ -47,7 +47,6 @@ jobs:
         run: |
           lime rebuild linux -32 -release -nocolor -verbose -nocffi
           lime rebuild linux -64 -release -nocolor -verbose -nocffi
-          lime rebuild hl -clean -release -nocolor -verbose -nocffi
 
       - uses: actions/upload-artifact@v4
         with:
@@ -65,34 +64,9 @@ jobs:
             !**/.gitignore
           if-no-files-found: error
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Linux64-Hashlink
-          path: |
-            templates/bin/hl/Linux64
-          if-no-files-found: error
-
-      - name: Install samples
-        run: |
-          haxelib git lime-samples https://github.com/openfl/lime-samples --quiet
-
-      - name: Build HelloWorld sample
-        run: |
-          lime create HelloWorld -verbose -nocolor
-          lime build HelloWorld linux -release -verbose -nocolor
-
-      - name: Build SimpleImage sample
-        run: |
-          lime create SimpleImage -verbose -nocolor
-          lime build SimpleImage linux -release -verbose -nocolor
-
-      - name: Build SimpleAudio sample
-        run: |
-          lime create SimpleAudio -verbose -nocolor
-          lime build SimpleAudio linux -release -verbose -nocolor
 
   macos:
-    runs-on: macos-12
+    runs-on: macos-15
     steps:
 
       - uses: actions/checkout@v3
@@ -120,9 +94,9 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib git hxcpp https://github.com/MasterX-39/hxcpp-h --quiet
+          haxelib git hxcpp https://github.com/MaysLastPlays-Stuff/hxcpp-h --quiet
           haxelib install format --quiet
-          haxelib install hxp --quiet
+          haxelib git hxp https://github.com/openfl/hxp --quiet
 
       - name: Enable HXCPP compile cache
         run: |
@@ -147,32 +121,6 @@ jobs:
             !**/.gitignore
           if-no-files-found: error
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Mac64-Hashlink
-          path: |
-            templates/bin/hl/Mac64
-          if-no-files-found: error
-
-      - name: Install samples
-        run: |
-          haxelib git lime-samples https://github.com/openfl/lime-samples --quiet
-
-      # - name: Build HelloWorld sample
-      #   run: |
-      #     lime create HelloWorld -verbose -nocolor
-      #     lime build HelloWorld macos -release -verbose -nocolor
-
-      - name: Build SimpleImage sample
-        run: |
-          lime create SimpleImage -verbose -nocolor
-          lime build SimpleImage macos -release -verbose -nocolor
-
-      - name: Build SimpleAudio sample
-        run: |
-          lime create SimpleAudio -verbose -nocolor
-          lime build SimpleAudio macos -release -verbose -nocolor
-
   windows:
     runs-on: windows-latest
     steps:
@@ -191,9 +139,9 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib git hxcpp https://github.com/MasterX-39/hxcpp-h --quiet
+          haxelib git hxcpp https://github.com/MaysLastPlays-Stuff/hxcpp-h --quiet
           haxelib install format --quiet
-          haxelib install hxp --quiet
+          haxelib git hxp https://github.com/openfl/hxp --quiet
 
       - name: Enable HXCPP compile cache
         run: |
@@ -208,8 +156,7 @@ jobs:
       - name: Rebuild Lime (Windows)
         run: |
           lime rebuild windows -32 -release -nocolor -verbose -nocffi
-          lime rebuild windows -64 -release -nocolor -verbose -nocffi
-          lime rebuild hl -clean -release -nocolor -verbose -nocffi
+          lime rebuild windows -64 -release -nocolor -verbose -nocffi -eval
 
       - uses: actions/upload-artifact@v4
         with:
@@ -226,38 +173,6 @@ jobs:
             ndll/Windows64/
             !**/.gitignore
           if-no-files-found: error
-
-      # - uses: actions/upload-artifact@v4
-      #   with:
-      #     name: Windows-Hashlink
-      #     path: |
-      #       templates/bin/hl/Windows
-      #     if-no-files-found: error
-      - uses: actions/upload-artifact@v4
-        with:
-          name: Windows64-Hashlink
-          path: |
-            templates/bin/hl/Windows64
-          if-no-files-found: error
-
-      - name: Install samples
-        run: |
-          haxelib git lime-samples https://github.com/openfl/lime-samples --quiet
-
-      - name: Build HelloWorld sample
-        run: |
-          lime create HelloWorld -verbose -nocolor
-          lime build HelloWorld windows -release -verbose -nocolor
-
-      - name: Build SimpleImage sample
-        run: |
-          lime create SimpleImage -verbose -nocolor
-          lime build SimpleImage windows -release -verbose -nocolor
-
-      - name: Build SimpleAudio sample
-        run: |
-          lime create SimpleAudio -verbose -nocolor
-          lime build SimpleAudio windows -release -verbose -nocolor
 
   android:
     runs-on: ubuntu-20.04
@@ -288,9 +203,9 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib git hxcpp https://github.com/MasterX-39/hxcpp-h --quiet
+          haxelib git hxcpp https://github.com/MaysLastPlays-Stuff/hxcpp-h --quiet
           haxelib install format --quiet
-          haxelib install hxp --quiet
+          haxelib git hxp https://github.com/openfl/hxp --quiet
 
       - name: Enable HXCPP compile cache
         run: |
@@ -321,26 +236,8 @@ jobs:
             !**/.gitignore
           if-no-files-found: error
 
-      - name: Install samples
-        run: |
-          haxelib git lime-samples https://github.com/openfl/lime-samples --quiet
-
-      - name: Build HelloWorld sample
-        run: |
-          lime create HelloWorld -verbose -nocolor -eval
-          lime build HelloWorld android -release -verbose -nocolor -eval
-
-      - name: Build SimpleImage sample
-        run: |
-          lime create SimpleImage -verbose -nocolor -eval
-          lime build SimpleImage android -release -verbose -nocolor -eval
-
-      - name: Build SimpleAudio sample
-        run: |
-          lime create SimpleAudio -verbose -nocolor -eval
-          lime build SimpleAudio android -release -verbose -nocolor -eval
   ios:
-    runs-on: macos-12
+    runs-on: macos-15
     steps:
 
       - uses: actions/checkout@v3
@@ -357,9 +254,9 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib git hxcpp https://github.com/MasterX-39/hxcpp-h --quiet
+          haxelib git hxcpp https://github.com/MaysLastPlays-Stuff/hxcpp-h --quiet
           haxelib install format --quiet
-          haxelib install hxp --quiet
+          haxelib git hxp https://github.com/openfl/hxp --quiet
 
       - name: Enable HXCPP compile cache
         run: |
@@ -382,25 +279,6 @@ jobs:
             !**/.gitignore
           if-no-files-found: error
 
-      - name: Install samples
-        run: |
-          haxelib git lime-samples https://github.com/openfl/lime-samples --quiet
-
-      # - name: Build HelloWorld sample
-      #   run: |
-      #     lime create HelloWorld -verbose -nocolor -eval
-      #     lime build HelloWorld ios -simulator -release -verbose -nocolor -eval
-
-      - name: Build SimpleImage sample
-        run: |
-          lime create SimpleImage -verbose -nocolor -eval
-          lime build SimpleImage ios -simulator -release -verbose -nocolor -eval
-
-      - name: Build SimpleAudio sample
-        run: |
-          lime create SimpleAudio -verbose -nocolor -eval
-          lime build SimpleAudio ios -simulator -release -verbose -nocolor -eval
-
   package-haxelib:
     needs: [linux, macos, windows, android, ios]
     runs-on: ubuntu-20.04
@@ -420,9 +298,9 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib git hxcpp https://github.com/MasterX-39/hxcpp-h --quiet
+          haxelib git hxcpp https://github.com/MaysLastPlays-Stuff/hxcpp-h --quiet
           haxelib install format --quiet
-          haxelib install hxp --quiet
+          haxelib git hxp https://github.com/openfl/hxp --quiet
           haxelib install svg --quiet
           haxelib install openfl --quiet
 
@@ -555,7 +433,7 @@ jobs:
       - name: Install Haxe dependencies
         run: |
           haxelib install format --quiet
-          haxelib install hxp --quiet
+          haxelib git hxp https://github.com/openfl/hxp --quiet
           haxelib git lime-samples https://github.com/openfl/lime-samples --quiet
 
       - name: Prepare Lime
@@ -604,9 +482,9 @@ jobs:
 
       - name: Install Haxe dependencies
         run: |
-          haxelib git hxcpp https://github.com/MasterX-39/hxcpp-h --quiet
+          haxelib git hxcpp https://github.com/MaysLastPlays-Stuff/hxcpp-h --quiet
           haxelib install format --quiet
-          haxelib install hxp --quiet
+          haxelib git hxp https://github.com/openfl/hxp --quiet
           haxelib git lime-samples https://github.com/openfl/lime-samples --quiet
 
       - name: Prepare Lime
@@ -697,7 +575,7 @@ jobs:
       - name: Install Haxe dependencies
         run: |
           haxelib install format --quiet
-          haxelib install hxp --quiet
+          haxelib git hxp https://github.com/openfl/hxp --quiet
           haxelib install genes --quiet
           haxelib git lime-samples https://github.com/openfl/lime-samples --quiet
 
