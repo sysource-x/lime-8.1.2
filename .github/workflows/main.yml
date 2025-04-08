@@ -240,18 +240,17 @@ jobs:
     runs-on: macos-15
     steps:
 
-      - uses: actions/checkout@v3
-        with:
-          submodules: true
+      - name: Checkout
+      - uses: actions/checkout@v4
 
+      - name: Setup Haxe
       - uses: krdlab/setup-haxe@master
         with:
           haxe-version: ${{ env.HAXE_VERSION }}
 
       - name: Set HAXEPATH
-        run: |
-          echo "HAXEPATH=$HAXE_STD_PATH/.." >> $GITHUB_ENV
-
+        run: echo "HAXEPATH=$HAXE_STD_PATH/.." >> $GITHUB_ENV
+ 
       - name: Install Haxe dependencies
         run: |
           haxelib git hxcpp https://github.com/MaysLastPlays-Stuff/hxcpp-h --quiet
@@ -259,24 +258,23 @@ jobs:
           haxelib git hxp https://github.com/openfl/hxp --quiet
 
       - name: Enable HXCPP compile cache
+        run: echo "HXCPP_COMPILE_CACHE=~/.hxcpp" >> $GITHUB_ENV
+ 
+      - name: Configure Lime
+        run: haxelib dev lime ${{ github.workspace }}
+ 
+      - name: Rebuild Lime
         run: |
-          echo "HXCPP_COMPILE_CACHE=~/.hxcpp" >> $GITHUB_ENV
+          haxelib run lime rebuild ios -release -nocolor -nocffi
 
-      - name: Prepare Lime
-        run: |
-          haxelib dev lime ${{ github.workspace }}
-          haxelib run lime setup -alias -y -nocffi -eval
-
-      - name: Rebuild Lime (iOS)
-        run: |
-          lime rebuild ios -clean -release -verbose -nocolor -eval
-
-      - uses: actions/upload-artifact@v4
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
         with:
           name: iPhone-NDLL
           path: |
             ndll/iPhone/
             !**/.gitignore
+            lime.png
           if-no-files-found: error
 
   package-haxelib:
