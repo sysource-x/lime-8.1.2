@@ -68,57 +68,49 @@ jobs:
   macos:
     runs-on: macos-15
     steps:
-
-      - uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        uses: krdlab/setup-haxe@master
         with:
-          submodules: true
-
-      - uses: krdlab/setup-haxe@master
-        with:
-          haxe-version: ${{ env.HAXE_VERSION }}
+          haxe-version: 4.3.4
 
       - name: Set HAXEPATH
-        run: |
-          echo "HAXEPATH=$HAXE_STD_PATH/.." >> $GITHUB_ENV
-
-      - name: Install HashLink dependencies
-        run: |
-          pushd project/lib/hashlink
-          brew update
-          rm /usr/local/bin/2to3*
-          rm /usr/local/bin/idle3*
-          rm /usr/local/bin/pydoc3*
-          rm /usr/local/bin/python3*
-          brew bundle
-          popd
+        run: echo "HAXEPATH=$HAXE_STD_PATH/.." >> $GITHUB_ENV
 
       - name: Install Haxe dependencies
         run: |
           haxelib git hxcpp https://github.com/MaysLastPlays-Stuff/hxcpp-h --quiet
           haxelib install format --quiet
           haxelib git hxp https://github.com/openfl/hxp --quiet
-
+  
       - name: Enable HXCPP compile cache
-        run: |
-          echo "HXCPP_COMPILE_CACHE=~/.hxcpp" >> $GITHUB_ENV
+        run: echo "HXCPP_COMPILE_CACHE=~/.hxcpp" >> $GITHUB_ENV
+ 
+      - name: Configure Lime
+        run: haxelib dev lime ${{ github.workspace }}
 
-      - name: Rebuild Lime tools
+      - name: Rebuild Lime
         run: |
-          haxelib dev lime ${{ github.workspace }}
-          haxelib run lime rebuild tools -nocolor -verbose -nocffi
-          haxelib run lime setup -alias -y -nocffi
+          haxelib run lime rebuild macos -release -64 -nocolor -verbose -nocffi
+          haxelib run lime rebuild macos -release -nocolor -verbose -nocffi
 
-      - name: Rebuild Lime (macOS)
-        run: |
-          lime rebuild macos -clean -release -64 -nocolor -verbose -nocffi
-          lime rebuild hl -clean -release -nocolor -verbose -nocffi
-
-      - uses: actions/upload-artifact@v4
+      - name: Upload Artifact (x86_64)
+        uses: actions/upload-artifact@v4
         with:
           name: Mac64-NDLL
           path: |
             ndll/Mac64/
             !**/.gitignore
+            lime.png
+          if-no-files-found: error
+
+      - name: Upload Artifact (arm64)
+        uses: actions/upload-artifact@v4
+        with:
+          name: MacArm64-NDLL
+          path: |
+            ndll/MacArm64/
+            !**/.gitignore
+            lime.png
           if-no-files-found: error
 
   windows:
