@@ -305,6 +305,11 @@ jobs:
 
       - uses: actions/download-artifact@v3
         with:
+          name: Mac-NDLL
+          path: ndll/Mac/
+
+      - uses: actions/download-artifact@v3
+        with:
           name: Mac64-NDLL
           path: ndll/Mac64/
 
@@ -312,31 +317,6 @@ jobs:
         with:
           name: Windows-NDLL
           path: ndll/Windows/
-
-      - uses: actions/download-artifact@v3
-        with:
-          name: Windows64-NDLL
-          path: ndll/Windows64/
-
-      # - uses: actions/download-artifact@v3
-      #   with:
-      #     name: Windows-Hashlink
-      #     path: templates/bin/hl/Windows
-
-      - uses: actions/download-artifact@v3
-        with:
-          name: Windows64-Hashlink
-          path: templates/bin/hl/Windows64
-
-      - uses: actions/download-artifact@v3
-        with:
-          name: Mac64-Hashlink
-          path: templates/bin/hl/Mac64
-
-      - uses: actions/download-artifact@v3
-        with:
-          name: Linux64-Hashlink
-          path: templates/bin/hl/Linux64
 
       - name: Rebuild Lime svg.n
         working-directory: tools
