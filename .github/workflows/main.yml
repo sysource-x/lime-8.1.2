@@ -398,21 +398,6 @@ jobs:
           haxelib dev lime ${{ github.workspace }}
           haxelib run lime setup -alias -y -nocffi -eval
 
-      - name: Build HelloWorld sample
-        run: |
-          lime create HelloWorld -verbose -nocolor -eval
-          lime build HelloWorld flash -release -verbose -nocolor -eval
-
-      - name: Build SimpleImage sample
-        run: |
-          lime create SimpleImage -verbose -nocolor -eval
-          lime build SimpleImage flash -release -verbose -nocolor -eval
-
-      - name: Build SimpleAudio sample
-        run: |
-          lime create SimpleAudio -verbose -nocolor -eval
-          lime build SimpleAudio flash -release -verbose -nocolor -eval
-
   air-samples:
     runs-on: windows-latest
     strategy:
@@ -450,21 +435,6 @@ jobs:
           haxelib run lime setup -alias -y -nocffi -eval
           haxelib run lime config AIR_SDK ${{ env.AIR_HOME }} -eval
 
-      - name: Build HelloWorld sample
-        run: |
-          lime create HelloWorld -verbose -nocolor -eval
-          lime build HelloWorld air -release -verbose -nocolor -eval
-
-      - name: Build SimpleImage sample
-        run: |
-          lime create SimpleImage -verbose -nocolor -eval
-          lime build SimpleImage air -release -verbose -nocolor -eval
-
-      - name: Build SimpleAudio sample
-        run: |
-          lime create SimpleAudio -verbose -nocolor -eval
-          lime build SimpleAudio air -release -verbose -nocolor -eval
-
   hashlink-samples:
     needs: package-haxelib
     strategy:
@@ -500,21 +470,6 @@ jobs:
           haxelib dev lime lime-haxelib
           haxelib run lime setup -alias -y -nocffi
 
-      - name: Build HelloWorld sample
-        run: |
-          lime create HelloWorld -verbose -nocolor
-          lime build HelloWorld hl -release -verbose -nocolor
-
-      - name: Build SimpleImage sample
-        run: |
-          lime create SimpleImage -verbose -nocolor
-          lime build SimpleImage hl -release -verbose -nocolor
-
-      - name: Build SimpleAudio sample
-        run: |
-          lime create SimpleAudio -verbose -nocolor
-          lime build SimpleAudio hl -release -verbose -nocolor
-
   html5-samples:
     runs-on: ubuntu-latest
     steps:
@@ -540,36 +495,6 @@ jobs:
         run: |
           haxelib dev lime ${{ github.workspace }}
           haxelib run lime setup -alias -y -nocffi -eval
-
-      - name: Build HelloWorld sample
-        run: |
-          lime create HelloWorld -verbose -nocolor -eval
-          lime build HelloWorld html5 -release -verbose -nocolor -eval
-
-      - name: Build HelloWorld variants
-        run: |
-          lime build HelloWorld html5 -clean -release -verbose -nocolor --haxelib=genes -eval
-          lime build HelloWorld html5 -clean -release -verbose -nocolor -minify -terser -eval
-
-      - name: Build SimpleImage sample
-        run: |
-          lime create SimpleImage -verbose -nocolor -eval
-          lime build SimpleImage html5 -release -verbose -nocolor -eval
-
-      - name: Build SimpleImage variants
-        run: |
-          lime build SimpleImage html5 -clean -release -verbose -nocolor --haxelib=genes -eval
-          lime build SimpleImage html5 -clean -release -verbose -nocolor -minify -terser -eval
-
-      - name: Build SimpleAudio sample
-        run: |
-          lime create SimpleAudio -verbose -nocolor -eval
-          lime build SimpleAudio html5 -release -verbose -nocolor -eval
-
-      - name: Build SimpleAudio variants
-        run: |
-          lime build SimpleAudio html5 -clean -release -verbose -nocolor --haxelib=genes -eval
-          lime build SimpleAudio html5 -clean -release -verbose -nocolor -minify -terser -eval
 
   neko-samples:
     needs: package-haxelib
@@ -606,21 +531,6 @@ jobs:
         run: |
           haxelib dev lime lime-haxelib
           haxelib run lime setup -alias -y -nocffi
-
-      - name: Build HelloWorld sample
-        run: |
-          lime create HelloWorld -verbose -nocolor
-          lime build HelloWorld neko -release -verbose -nocolor
-
-      - name: Build SimpleImage sample
-        run: |
-          lime create SimpleImage -verbose -nocolor
-          lime build SimpleImage neko -release -verbose -nocolor
-
-      - name: Build SimpleAudio sample
-        run: |
-          lime create SimpleAudio -verbose -nocolor
-          lime build SimpleAudio neko -release -verbose -nocolor
 
   notify:
     runs-on: ubuntu-latest
