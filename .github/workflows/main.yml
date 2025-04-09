@@ -469,7 +469,7 @@ jobs:
     needs: package-haxelib
     strategy:
       matrix:
-        os: [windows-latest, ubuntu-latest, macos-15]
+        os: [windows-latest, ubuntu-latest, macos-13]
     runs-on: ${{ matrix.os }}
     steps:
 
@@ -576,7 +576,7 @@ jobs:
     strategy:
       matrix:
         haxe-version: [3.4.7, 4.2.5]
-        os: [windows-latest, ubuntu-latest, macos-15]
+        os: [windows-latest, ubuntu-latest, macos-13]
     runs-on: ${{ matrix.os }}
     steps:
 
