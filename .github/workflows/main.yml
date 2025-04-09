@@ -288,43 +288,43 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: Android-NDLL
-          path: ndll/Android/
+          path: ${{github.workspace}} # ndll/Android/ 
 
       - name: Download iPhone NDLLs
         uses: actions/download-artifact@v3
         with:
           name: iPhone-NDLL
-          path: ndll/iPhone/
+          path: ${{github.workspace}} #ndll/iPhone/
 
       - name: Download Linux NDLLs
         uses: actions/download-artifact@v3
         with:
           name: Linux-NDLL
-          path: ndll/Linux/
+          path: ${{github.workspace}} #ndll/Linux/
 
       - name: Download Linux64 NDLLs
         uses: actions/download-artifact@v3
         with:
           name: Linux64-NDLL
-          path: ndll/Linux64/
+          path: ${{github.workspace}} #ndll/Linux64/
 
       - name: Download Mac NDLLs
         uses: actions/download-artifact@v3
         with:
           name: Mac-NDLL
-          path: ndll/Mac/
+          path: ${{github.workspace}} #ndll/Mac/
 
       - name: Download Mac64 NDLLs
         uses: actions/download-artifact@v3
         with:
           name: Mac64-NDLL
-          path: ndll/Mac64/
+          path: ${{github.workspace}} # ndll/Mac64/
 
       - name: Download Windows NDLLs
         uses: actions/download-artifact@v3
         with:
           name: Windows-NDLL
-          path: ndll/Windows/
+          path: ${{github.workspace}} #ndll/Windows/
 
       - name: Rebuild Lime svg.n
         working-directory: tools
