@@ -315,7 +315,7 @@ class IOSPlatform extends PlatformTarget
 			case "ipad": "2";
 			default: "1,2";
 		}
-		context.DEPLOYMENT = project.config.getString("ios.deployment", "9.0");
+		context.DEPLOYMENT = project.config.getString("ios.deployment", "13.6");
 
 		if (project.config.getString("ios.compiler") == "llvm" || project.config.getString("ios.compiler", "clang") == "clang")
 		{
@@ -448,6 +448,8 @@ class IOSPlatform extends PlatformTarget
 		{
 			context.HAXELIB_PATH = '';
 		}
+
+            context.CATEGORY_TYPE = project.config.getString("ios.category_type", "public.app-category.entertainment");
 
 		return context;
 	}

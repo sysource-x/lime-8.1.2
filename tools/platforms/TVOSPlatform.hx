@@ -252,7 +252,7 @@ class TVOSPlatform extends PlatformTarget
 			case "appletv": "3";
 			default: "3";
 		}
-		context.DEPLOYMENT = project.config.getString("tvos.deployment", "9.0");
+		context.DEPLOYMENT = project.config.getString("tvos.deployment", "13.6");
 
 		if (project.config.getString("tvos.compiler") == "llvm" || project.config.getString("tvos.compiler", "clang") == "clang")
 		{
